@@ -17,9 +17,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Matrix4f;
+import org.joml.Matrix4f;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 import net.minecraft.world.RaycastContext;
 
 import javax.annotation.Nullable;
@@ -90,7 +90,7 @@ public class HealthBarRenderer {
         List<Entity> entitiesInBoundingBox = e.getEntityWorld().getOtherEntities(e, e.getBoundingBox().stretch(lookVector.x * finalDistance, lookVector.y * finalDistance, lookVector.z * finalDistance).expand(1.0F));
         double minDistance = distance;
         for (Entity entity : entitiesInBoundingBox) {
-            if (entity.collides()) {
+            if (entity.canHit()) {
                 Box collisionBox = entity.getVisibilityBoundingBox();
                 Optional<Vec3d> interceptPosition = collisionBox.raycast(positionVector, reachVector);
                 if (collisionBox.contains(positionVector)) {
@@ -130,7 +130,7 @@ public class HealthBarRenderer {
         while (!passengerStack.isEmpty()) {
             entity = passengerStack.pop();
             if (!entity.isAlive()) continue;
-            String idString = String.valueOf(Registry.ENTITY_TYPE.getId(entity.getType()));
+            String idString = String.valueOf(Registries.ENTITY_TYPE.getId(entity.getType()));
             boolean boss = config.getBosses().contains(idString);
             if (config.getBlacklist().contains(idString)) {
                 continue;
