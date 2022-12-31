@@ -4,6 +4,9 @@ Currently nothing renders and I don't know why. Please take a look at what I cha
 Probably due to minecraft's migration to JOML for some maths functions.
 Now uses `org.joml.Quaternionf` and `org.joml.Vector3f`.
 
+build:
+Windows: `gradlew.bat clean build publish`
+Linux: `./gradle clean build publish`
 
 Functional minimalistic Unit Frames for the modern Minecrafter. A fork of Neat for Fabric
 
